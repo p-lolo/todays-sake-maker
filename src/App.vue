@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
-    <todays-sake v-model="picture" />
-    <img :src="picture" />
+    <todays-sake />
   </div>
 </template>
 
@@ -16,7 +15,6 @@ export default {
   },
   data() {
     return {
-      picture: null,
     };
   },
 };

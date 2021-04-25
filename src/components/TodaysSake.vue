@@ -1,20 +1,25 @@
 <template>
   <div class="main">
     <input ref="file" class="file-button" type="file" @change="upload" />
-    <button type="button" class="delete-button" @click="deleteImage">
-      削除する
-    </button>
     <ul v-if="fileErrorMessages.length > 0" class="error-messages">
       <li v-for="(message, index) in fileErrorMessages" :key="index">
         {{ message }}
       </li>
     </ul>
+    <button type="button" @click="cropImage" v-if="imgSrc != ''">Crop</button>
+    <!-- Cropper / option : https://cly7796.net/blog/javascript/try-using-cropper-js/  -->
     <vue-cropper
       ref="cropper"
-      :aspect-ratio="16 / 9"
+      :aspect-ratio="3 / 4"
       :src="imgSrc"
-      preview=".preview"
+      :guides="true"
+      :view-mode="2"
+      :background="true"
+      :rotatable="true"
+      :img-style="{ width: '600', height: '400px' }"
     />
+    <!-- Cropped Preview -->
+    <img :src="cropImg" />
   </div>
 </template>
 
@@ -24,7 +29,7 @@ import "cropperjs/dist/cropper.css";
 export default {
   name: "TodaysSake",
   components: {
-    VueCropper,
+    VueCropper
   },
   props: {
     value: {
@@ -35,6 +40,7 @@ export default {
   data() {
     return {
       imgSrc: "",
+      cropImg: "",
       file: null,
       fileErrorMessages: [],
     };
@@ -45,8 +51,7 @@ export default {
       const file = files[0];
 
       if (this.checkFile(file)) {
-        const picture = await this.getBase64(file);
-        this.$emit("input", picture);
+        await this.getBase64(file);
       }
     },
     getBase64(file) {
@@ -86,9 +91,9 @@ export default {
       }
       return result;
     },
-    deleteImage() {
-      this.$emit("input", null);
-      this.$refs.file = null;
+    cropImage() {
+      // get image data for post processing, e.g. upload or setting image src
+      this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
     },
   },
 };
