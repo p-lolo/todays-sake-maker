@@ -1,26 +1,34 @@
 <template>
-  <div class="main">
-    <input ref="file" class="file-button" type="file" @change="upload" />
-    <ul v-if="fileErrorMessages.length > 0" class="error-messages">
-      <li v-for="(message, index) in fileErrorMessages" :key="index">
-        {{ message }}
-      </li>
-    </ul>
-    <button type="button" @click="cropImage" v-if="imgSrc != ''">Crop</button>
-    <!-- Cropper / option : https://cly7796.net/blog/javascript/try-using-cropper-js/  -->
-    <vue-cropper
-      ref="cropper"
-      :aspect-ratio="3 / 4"
-      :src="imgSrc"
-      :guides="true"
-      :view-mode="2"
-      :background="true"
-      :rotatable="true"
-      :img-style="{ width: '600', height: '400px' }"
-    />
-    <!-- Cropped Preview -->
-    <img :src="cropImg" />
-  </div>
+  <v-container>
+    <v-row class="text-center">
+      <v-col cols="12">
+        <div class="main">
+          <input ref="file" class="file-button" type="file" @change="upload" />
+          <ul v-if="fileErrorMessages.length > 0" class="error-messages">
+            <li v-for="(message, index) in fileErrorMessages" :key="index">
+              {{ message }}
+            </li>
+          </ul>
+          <button type="button" @click="cropImage" v-if="imgSrc != ''">
+            Crop
+          </button>
+          <!-- Cropper / option : https://cly7796.net/blog/javascript/try-using-cropper-js/  -->
+          <vue-cropper
+            ref="cropper"
+            :aspect-ratio="3 / 4"
+            :src="imgSrc"
+            :guides="true"
+            :view-mode="2"
+            :background="true"
+            :rotatable="true"
+            :img-style="{ width: '600', height: '400px' }"
+          />
+          <!-- Cropped Preview -->
+          <img :src="cropImg" />
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -29,7 +37,7 @@ import "cropperjs/dist/cropper.css";
 export default {
   name: "TodaysSake",
   components: {
-    VueCropper
+    VueCropper,
   },
   props: {
     value: {
