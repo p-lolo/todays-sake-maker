@@ -23,9 +23,8 @@
             :rotatable="true"
             :img-style="{ width: '600', height: '400px' }"
           />
-          <!-- Cropped Preview -->
-          <img :src="cropImg" />
         </div>
+        <canvas id="canvas" width="680" height="480" ref="canvas"></canvas>
       </v-col>
     </v-row>
   </v-container>
@@ -47,6 +46,7 @@ export default {
   },
   data() {
     return {
+      canvasContext: {},
       imgSrc: "",
       cropImg: "",
       file: null,
@@ -100,8 +100,34 @@ export default {
       return result;
     },
     cropImage() {
-      // get image data for post processing, e.g. upload or setting image src
+      // cropした画像を保管
       this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
+      // cropした画像をImageのsrcとして設定
+      var cropperData = new Image();
+      cropperData.src = this.cropImg;
+      // Canvasに画像を描画
+      cropperData.onload = () => {
+        var data = {
+          x: Math.round(cropperData.x),
+          y: Math.round(cropperData.y),
+          width: Math.round(cropperData.width),
+          height: Math.round(cropperData.height),
+          vectorX: 1,
+          vectorY: 1,
+        };
+        this.canvasContext = this.$refs.canvas.getContext("2d");
+        this.canvasContext.drawImage(
+          cropperData,
+          data["x"],
+          data["y"],
+          data["width"],
+          data["height"],
+          0,
+          0, //切り出されるCanvas内での座標指定
+          data["vectorX"] * 680, //切り出される画像の横幅
+          data["vectorY"] * 480 //切り出される画像の縦幅
+        );
+      };
     },
   },
 };
