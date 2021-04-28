@@ -28,7 +28,7 @@
             ></v-text-field>
             <v-divider></v-divider>
             <v-textarea
-              v-model="sakeDescription"
+              v-model="sakeDescriptionTmpdata"
               label="お酒の説明"
               counter
               maxlength="200"
@@ -107,33 +107,50 @@ export default {
     return {
       canvasContext: {},
       imgSrc: "",
-      cropImg: "",
+      cropedBinary: "",
       file: null,
       fileErrorMessages: [],
       sakeCategory: "",
       sakeName: "",
-      sakeDescription: "",
+      sakeDescriptionTmpdata: "",
+      sakeDescription: [],
+      SAKE_INTRODUCTION_FIELD: {
+        X_POS: 0,
+        Y_POS: 0,
+        WIDTH: 740,
+        HEIGHT: 720,
+      },
+      CROPPED_DATA_FIELD: {
+        X_POS: 740,
+        Y_POS: 0,
+        WIDTH: 540,
+        HEIGHT: 720,
+      },
     };
   },
   mounted() {
     // サンプル画像読み込み
     this.$nextTick(function () {
       this.imgSrc = this.$refs.examplesake.src;
-      // todo : なくてもよさそう？
-      // this.$refs.cropper.replace(this.$refs.examplesake.src);
-      // this.drawCanvas();
     });
   },
   methods: {
     //酒の紹介を描画する
     drawIntroduction() {
       this.canvasContext = this.$refs.canvas.getContext("2d");
+      // 文字領域を毎度削除する（上書きされない）
+      this.canvasContext.clearRect(
+        this.SAKE_INTRODUCTION_FIELD.X_POS,
+        this.SAKE_INTRODUCTION_FIELD.Y_POS,
+        this.SAKE_INTRODUCTION_FIELD.WIDTH,
+        this.SAKE_INTRODUCTION_FIELD.HEIGHT
+      );
+      // フォントと位置指定
       this.canvasContext.font = "32px serif";
       this.canvasContext.fillStyle = "#404040";
-
       this.canvasContext.fillText(this.sakeCategory, 100, 100);
       this.canvasContext.fillText(this.sakeName, 100, 200);
-      this.canvasContext.fillText(this.sakeDescription, 100, 300);
+      this.wordWrap();
     },
     // imput属性のメソッド実行
     selectImageClick() {
@@ -188,33 +205,75 @@ export default {
     },
     cropImage() {
       // cropした画像を保管
-      this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
+      this.cropedBinary = this.$refs.cropper.getCroppedCanvas().toDataURL();
       // cropした画像をImageのsrcとして設定
-      var cropperData = new Image();
-      cropperData.src = this.cropImg;
+      var croppedData = new Image();
+      croppedData.src = this.cropedBinary;
       // Canvasに画像を描画
-      cropperData.onload = () => {
+      croppedData.onload = () => {
         var data = {
-          x: Math.round(cropperData.x),
-          y: Math.round(cropperData.y),
-          width: Math.round(cropperData.width),
-          height: Math.round(cropperData.height),
+          x: Math.round(croppedData.x),
+          y: Math.round(croppedData.y),
+          width: Math.round(croppedData.width),
+          height: Math.round(croppedData.height),
           vectorX: 1,
           vectorY: 1,
         };
         this.canvasContext = this.$refs.canvas.getContext("2d");
         this.canvasContext.drawImage(
-          cropperData,
+          croppedData,
           data["x"],
           data["y"],
           data["width"],
           data["height"],
           740, //切り出されるCanvas内でのX座標指定
           0, //切り出されるCanvas内でのY座標指定
-          data["vectorX"] * 540, //切り出される画像の横幅
-          data["vectorY"] * 720 //切り出される画像の縦幅
+          data["vectorX"] * this.CROPPED_DATA_FIELD.WIDTH, //切り出される画像の横幅
+          data["vectorY"] * this.CROPPED_DATA_FIELD.HEIGHT //切り出される画像の縦幅
         );
       };
+    },
+    wordWrap() {
+      //入力文字を1文字毎に配列化
+      var aryText = this.sakeDescriptionTmpdata.split("");
+
+      //
+      var SAKE_INTRODUCTION_CHAR_LENGTH = 15;
+      var fontSize =
+        this.SAKE_INTRODUCTION_FIELD.WIDTH / SAKE_INTRODUCTION_CHAR_LENGTH;
+
+      //出力用の配列を用意
+      this.sakeDescription = [];
+      this.sakeDescription[0] = "";
+      var row_cnt = 0;
+
+      //入力1文字毎にループ改行コードもしくは折り返しで配列の添え字を足す
+      for (var i = 0; i < aryText.length; i++) {
+        var text = aryText[i];
+        if (
+          this.sakeDescription[row_cnt].length >= SAKE_INTRODUCTION_CHAR_LENGTH
+        ) {
+          row_cnt++;
+          this.sakeDescription[row_cnt] = "";
+        }
+        if (text == "\n") {
+          row_cnt++;
+          this.sakeDescription[row_cnt] = "";
+          text = "";
+        }
+        this.sakeDescription[row_cnt] += text;
+      }
+      //文字の表示y軸とx軸をループする
+      for (var j = 0; j < this.sakeDescription.length; j++) {
+        var aryStr = this.sakeDescription[j].split("");
+        for (var k = 0; k < aryStr.length; k++) {
+          this.canvasContext.fillText(
+            aryStr[k],
+            k * fontSize,
+            j * fontSize + 300
+          );
+        }
+      }
     },
   },
 };
