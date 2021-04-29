@@ -11,7 +11,7 @@
       </v-app-bar>
       <todays-sake />
     </div>
-    <v-footer color="primary" dark> Vuetify </v-footer>
+    <!-- <v-footer color="primary" dark> hogehoge </v-footer> -->
   </v-app>
 </template>
 
@@ -37,6 +37,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 60px;
+  margin-bottom: 60px;
 }
 .v-application {
   font-family: "Kiwi Maru" !important;

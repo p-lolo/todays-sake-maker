@@ -8,12 +8,59 @@
               今の酒はこれ！ジェネレーター
             </h2>
             <br />
-            <p class="text-left text-center">
-              いま飲んでいるお酒をVRChatでアピールしよう！
+            <p class="text-center">
+              <span id="subtitle"
+                ><b>いま飲んでいるお酒をVRChatでアピールしよう！</b></span
+              >
             </p>
+            <div class="py-4">
+              <img
+                alt="icon_beer"
+                src="../assets/icon_beer.png"
+                ref="iconbeer"
+                width="100"
+                height="100"
+                align="left"
+              />
+              <span id="subtitle">これはなに</span>
+              <p>
+                VRChatで飲み会などのイベントに参加している時に、「何飲んでるの？」と聞かれることがあるかと思います。<br />
+                そんなとき、手持ち看板で自信満々に好きなお酒をアピールしたくなりますよね。<br />
+                このサービスはVRChatのアバターに飲んでいるお酒の情報を載せた看板のテクスチャをウェブ上で生成するサービスです。
+              </p>
+            </div>
+            <div class="py-4">
+              <img
+                alt="icon_nihonshu"
+                src="../assets/icon_nihonshu.png"
+                ref="iconnihonshu"
+                width="100"
+                height="100"
+                align="left"
+              />
+              <span id="subtitle">どんなテクスチャがつくれるの？</span>
+              <p>
+                <a target="”_blank”" href="https://booth.pm/ja/items/1085365"
+                  >すずめはうす様がBoothで配布しているVRChat用立て看板</a
+                >
+                のテクスチャに合成されたものが生成されます。<br />
+                そのため、ウェブ上で作成したテクスチャを、ペイントツールなどを噛ますことなくそのまま利用することができます。
+                <br />
+                このサービスでテクスチャを作ってVRChatでアピールしている様子は
+                <a
+                  target="”_blank”"
+                  href="https://twitter.com/search?q=%23%E4%BB%8A%E3%81%AE%E9%85%92%E3%81%AF%E3%81%93%E3%82%8C&src=recent_search_click"
+                  >#今の酒はこれ</a
+                >
+                でツイートしてくれると嬉しいです。
+              </p>
+            </div>
+            <div id="adjust">
+              <h3 class="text-center">① まずは好きなお酒を入力しよう</h3>
+            </div>
           </v-col>
           <v-col cols="6">
-            <h3 class="text-center">お酒の情報</h3>
+            <h4 class="text-center">お酒の情報</h4>
             <v-form>
               <v-text-field
                 v-model="sakeCategory"
@@ -44,7 +91,7 @@
             </v-form>
           </v-col>
           <v-col cols="6">
-            <h3 class="text-center">お酒の画像</h3>
+            <h4 class="text-center">お酒の画像</h4>
             <input
               style="display: none"
               ref="input"
@@ -89,7 +136,9 @@
           </v-col>
         </v-row>
         <div id="adjust">
-          <h3 class="text-center">文字位置調整</h3>
+          <h3 class="text-center">
+            ② 入力した文字の位置やフォントを調整しよう
+          </h3>
         </div>
         <v-row align="start" justify="center">
           <v-col cols="6">
@@ -311,20 +360,25 @@
               style="width: 800px"
             ></canvas>
           </v-col>
+          <div id="adjust">
+            <h3 class="text-center">③ ダウンロードしてアバターに設定しよう</h3>
+          </div>
           <v-row align="start" justify="center">
             <v-col cols="12">
-              <div>
+              <div class="pa-2">
                 <v-btn @click="downloadGeneratedImage" depressed color="primary"
                   >ダウンロード</v-btn
                 >
+                プレビュー画面に表示されているもののみをダウンロードします
               </div>
-              <div>
+              <div class="pa-2">
                 <v-btn
                   @click="downloadGeneratedImageWithTexture"
                   depressed
                   color="primary"
                   >ダウンロード（テクスチャ合成済み）</v-btn
                 >
+                プレビュー画面に表示されているもののみをダウンロードします
               </div>
             </v-col>
           </v-row>
@@ -640,7 +694,7 @@ export default {
 
 <style scoped>
 #adjust {
-  margin: 150px 0 0 0;
+  margin: 50px 0 20px 0;
 }
 #preview {
   margin: 0 0 0 0;
@@ -650,18 +704,21 @@ export default {
 }
 h1 {
   font-size: 6rem;
-  margin: 40px 0 0;
+  margin: 20px 0 0;
 }
 h2 {
   font-size: 3.75rem;
-  margin: 40px 0 0;
+  margin: 20px 0 0;
 }
 h3 {
   font-size: 3rem;
-  margin: 40px 0 0;
+  margin: 20px 0 0;
 }
 h4 {
   font-size: 2.125rem;
+}
+#subtitle {
+  font-size: 1.5rem;
 }
 ul {
   list-style-type: none;
