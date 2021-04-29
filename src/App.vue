@@ -4,12 +4,11 @@
       <v-app-bar color="primary" dark app>
         <v-toolbar-title>今の酒はこれ！ジェネレーター</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-items>
+        <!-- <v-toolbar-items>
           <v-btn text>Button</v-btn>
           <v-btn text>Button</v-btn>
-        </v-toolbar-items>
+        </v-toolbar-items> -->
       </v-app-bar>
-      <img alt="Vue logo" src="./assets/logo.png" />
       <todays-sake />
     </div>
     <v-footer color="primary" dark> Vuetify </v-footer>
@@ -31,11 +30,15 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400&display=swap");
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Kiwi Maru", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 60px;
+}
+.v-application {
+  font-family: "Kiwi Maru" !important;
 }
 </style>

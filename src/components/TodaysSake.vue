@@ -4,14 +4,16 @@
       <div id="making">
         <v-row align="start" justify="space-around">
           <v-col cols="12">
-            <p class="text-h2 text-center">今の酒はこれ！ジェネレーター</p>
+            <h2 id="title" class="h2 text-center">
+              今の酒はこれ！ジェネレーター
+            </h2>
             <br />
             <p class="text-left text-center">
-              Left aligned text on all viewport sizes.
+              いま飲んでいるお酒をVRChatでアピールしよう！
             </p>
           </v-col>
           <v-col cols="6">
-            <p class="text-h3 text-center">お酒の情報</p>
+            <h3 class="text-center">お酒の情報</h3>
             <v-form>
               <v-text-field
                 v-model="sakeCategory"
@@ -42,7 +44,7 @@
             </v-form>
           </v-col>
           <v-col cols="6">
-            <p class="text-h3 text-center">お酒の画像</p>
+            <h3 class="text-center">お酒の画像</h3>
             <input
               style="display: none"
               ref="input"
@@ -616,8 +618,20 @@ export default {
 #body {
   margin: 0 150px 0 150px;
 }
-h3 {
+h1 {
+  font-size: 6rem;
   margin: 40px 0 0;
+}
+h2 {
+  font-size: 3.75rem;
+  margin: 40px 0 0;
+}
+h3 {
+  font-size: 3rem;
+  margin: 40px 0 0;
+}
+h4 {
+  font-size: 2.125rem;
 }
 ul {
   list-style-type: none;
