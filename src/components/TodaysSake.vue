@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <v-container>
-      <v-row>
+      <v-row align="center" justify="space-around">
         <v-col cols="12">
           <p class="text-h2">今日のお酒ジェネレーター</p>
           <br />
@@ -76,6 +76,10 @@
           <p class="text-h3">プレビュー</p>
           <!-- 合成画像領域（Canvas） -->
           <canvas id="canvas" width="1280" height="720" ref="canvas"></canvas>
+          <br />
+          <v-btn @click="downloadGeneratedImage" depressed color="primary"
+            >ダウンロード</v-btn
+          >
         </v-col>
         <!-- 非表示サンプル酒画像 -->
         <img
@@ -148,6 +152,8 @@ export default {
       // フォントと位置指定
       this.canvasContext.font = "32px serif";
       this.canvasContext.fillStyle = "#404040";
+
+      // 文字の書き込み
       this.canvasContext.fillText(this.sakeCategory, 100, 100);
       this.canvasContext.fillText(this.sakeName, 100, 200);
       this.wordWrap();
@@ -274,6 +280,13 @@ export default {
           );
         }
       }
+    },
+    downloadGeneratedImage() {
+      let canvas = this.$refs.canvas;
+      let link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "test.png";
+      link.click();
     },
   },
 };
