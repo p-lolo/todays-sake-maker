@@ -89,209 +89,219 @@
           </v-col>
         </v-row>
         <div id="adjust">
-          <p class="text-h3 text-center">文字位置調整</p>
+          <h3 class="text-center">文字位置調整</h3>
         </div>
         <v-row align="start" justify="center">
-          <v-col cols="2">
-            <p class="text-h4 text-center">お酒の種類</p>
-            <v-subheader>フォントサイズ</v-subheader>
-            <v-slider
-              v-model="sakeCategoryFontSize"
-              class="align-center"
-              :max="50"
-              :min="5"
-              hide-details
-              @change="drawIntroduction"
-            >
-              <template v-slot:append>
-                <v-text-field
+          <v-col cols="6">
+            <v-row>
+              <v-col cols="4">
+                <h4 class="text-center">お酒の種類</h4>
+                <v-subheader>フォントサイズ</v-subheader>
+                <v-slider
                   v-model="sakeCategoryFontSize"
-                  class="mt-0 pt-0"
+                  class="align-center"
+                  :max="50"
+                  :min="5"
                   hide-details
-                  single-line
-                  type="number"
-                  style="width: 60px"
                   @change="drawIntroduction"
-                ></v-text-field>
-              </template>
-            </v-slider>
-            <v-subheader>縦の位置</v-subheader>
-            <v-slider
-              v-model="sakeCategoryYPos"
-              class="align-center"
-              :max="720"
-              :min="0"
-              hide-details
-              @change="drawIntroduction"
-            >
-              <template v-slot:append>
-                <v-text-field
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="sakeCategoryFontSize"
+                      class="mt-0 pt-0"
+                      hide-details
+                      single-line
+                      type="number"
+                      style="width: 60px"
+                      @change="drawIntroduction"
+                    ></v-text-field>
+                  </template>
+                </v-slider>
+                <v-subheader>縦の位置</v-subheader>
+                <v-slider
                   v-model="sakeCategoryYPos"
-                  class="mt-0 pt-0"
+                  class="align-center"
+                  :max="720"
+                  :min="0"
                   hide-details
-                  single-line
-                  type="number"
-                  style="width: 60px"
                   @change="drawIntroduction"
-                ></v-text-field>
-              </template>
-            </v-slider>
-            <v-subheader>横の位置</v-subheader>
-            <v-slider
-              v-model="sakeCategoryXPos"
-              class="align-center"
-              :max="200"
-              :min="0"
-              hide-details
-              @change="drawIntroduction"
-            >
-              <template v-slot:append>
-                <v-text-field
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="sakeCategoryYPos"
+                      class="mt-0 pt-0"
+                      hide-details
+                      single-line
+                      type="number"
+                      style="width: 60px"
+                      @change="drawIntroduction"
+                    ></v-text-field>
+                  </template>
+                </v-slider>
+                <v-subheader>横の位置</v-subheader>
+                <v-slider
                   v-model="sakeCategoryXPos"
-                  class="mt-0 pt-0"
+                  class="align-center"
+                  :max="200"
+                  :min="0"
                   hide-details
-                  single-line
-                  type="number"
-                  style="width: 60px"
                   @change="drawIntroduction"
-                ></v-text-field>
-              </template>
-            </v-slider>
-          </v-col>
-          <v-col cols="2">
-            <p class="text-h4 text-center">お酒の名前</p>
-            <v-subheader>フォントサイズ</v-subheader>
-            <v-slider
-              v-model="sakeNameFontSize"
-              class="align-center"
-              :max="100"
-              :min="5"
-              hide-details
-              @change="drawIntroduction"
-            >
-              <template v-slot:append>
-                <v-text-field
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="sakeCategoryXPos"
+                      class="mt-0 pt-0"
+                      hide-details
+                      single-line
+                      type="number"
+                      style="width: 60px"
+                      @change="drawIntroduction"
+                    ></v-text-field>
+                  </template>
+                </v-slider>
+              </v-col>
+              <v-col cols="4">
+                <h4 class="text-center">お酒の名前</h4>
+                <v-subheader>フォントサイズ</v-subheader>
+                <v-slider
                   v-model="sakeNameFontSize"
-                  class="mt-0 pt-0"
+                  class="align-center"
+                  :max="100"
+                  :min="5"
                   hide-details
-                  single-line
-                  type="number"
-                  style="width: 60px"
                   @change="drawIntroduction"
-                ></v-text-field>
-              </template>
-            </v-slider>
-            <v-subheader>縦の位置</v-subheader>
-            <v-slider
-              v-model="sakeNameYPos"
-              class="align-center"
-              :max="720"
-              :min="0"
-              hide-details
-              @change="drawIntroduction"
-            >
-              <template v-slot:append>
-                <v-text-field
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="sakeNameFontSize"
+                      class="mt-0 pt-0"
+                      hide-details
+                      single-line
+                      type="number"
+                      style="width: 60px"
+                      @change="drawIntroduction"
+                    ></v-text-field>
+                  </template>
+                </v-slider>
+                <v-subheader>縦の位置</v-subheader>
+                <v-slider
                   v-model="sakeNameYPos"
-                  class="mt-0 pt-0"
+                  class="align-center"
+                  :max="720"
+                  :min="0"
                   hide-details
-                  single-line
-                  type="number"
-                  style="width: 60px"
                   @change="drawIntroduction"
-                ></v-text-field>
-              </template>
-            </v-slider>
-            <v-subheader>横の位置</v-subheader>
-            <v-slider
-              v-model="sakeNameXPos"
-              class="align-center"
-              :max="200"
-              :min="0"
-              hide-details
-              @change="drawIntroduction"
-            >
-              <template v-slot:append>
-                <v-text-field
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="sakeNameYPos"
+                      class="mt-0 pt-0"
+                      hide-details
+                      single-line
+                      type="number"
+                      style="width: 60px"
+                      @change="drawIntroduction"
+                    ></v-text-field>
+                  </template>
+                </v-slider>
+                <v-subheader>横の位置</v-subheader>
+                <v-slider
                   v-model="sakeNameXPos"
-                  class="mt-0 pt-0"
+                  class="align-center"
+                  :max="200"
+                  :min="0"
                   hide-details
-                  single-line
-                  type="number"
-                  style="width: 60px"
                   @change="drawIntroduction"
-                ></v-text-field>
-              </template>
-            </v-slider>
-          </v-col>
-          <v-col cols="2">
-            <p class="text-h4 text-center">お酒の説明</p>
-            <v-subheader>フォントサイズ</v-subheader>
-            <v-slider
-              v-model="sakeDescriptionFontSize"
-              class="align-center"
-              :max="50"
-              :min="5"
-              hide-details
-              @change="drawIntroduction"
-            >
-              <template v-slot:append>
-                <v-text-field
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="sakeNameXPos"
+                      class="mt-0 pt-0"
+                      hide-details
+                      single-line
+                      type="number"
+                      style="width: 60px"
+                      @change="drawIntroduction"
+                    ></v-text-field>
+                  </template>
+                </v-slider>
+              </v-col>
+              <v-col cols="4">
+                <h4 class="text-center">お酒の説明</h4>
+                <v-subheader>フォントサイズ</v-subheader>
+                <v-slider
                   v-model="sakeDescriptionFontSize"
-                  class="mt-0 pt-0"
+                  class="align-center"
+                  :max="50"
+                  :min="5"
                   hide-details
-                  single-line
-                  type="number"
-                  style="width: 60px"
                   @change="drawIntroduction"
-                ></v-text-field>
-              </template>
-            </v-slider>
-            <v-subheader>縦の位置</v-subheader>
-            <v-slider
-              v-model="sakeDescriptionYPos"
-              class="align-center"
-              :max="720"
-              :min="0"
-              hide-details
-              @change="drawIntroduction"
-            >
-              <template v-slot:append>
-                <v-text-field
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="sakeDescriptionFontSize"
+                      class="mt-0 pt-0"
+                      hide-details
+                      single-line
+                      type="number"
+                      style="width: 60px"
+                      @change="drawIntroduction"
+                    ></v-text-field>
+                  </template>
+                </v-slider>
+                <v-subheader>縦の位置</v-subheader>
+                <v-slider
                   v-model="sakeDescriptionYPos"
-                  class="mt-0 pt-0"
+                  class="align-center"
+                  :max="720"
+                  :min="0"
                   hide-details
-                  single-line
-                  type="number"
-                  style="width: 60px"
                   @change="drawIntroduction"
-                ></v-text-field>
-              </template>
-            </v-slider>
-            <v-subheader>横の位置</v-subheader>
-            <v-slider
-              v-model="sakeDescriptionXPos"
-              class="align-center"
-              :max="200"
-              :min="0"
-              hide-details
-              @change="drawIntroduction"
-            >
-              <template v-slot:append>
-                <v-text-field
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="sakeDescriptionYPos"
+                      class="mt-0 pt-0"
+                      hide-details
+                      single-line
+                      type="number"
+                      style="width: 60px"
+                      @change="drawIntroduction"
+                    ></v-text-field>
+                  </template>
+                </v-slider>
+                <v-subheader>横の位置</v-subheader>
+                <v-slider
                   v-model="sakeDescriptionXPos"
-                  class="mt-0 pt-0"
+                  class="align-center"
+                  :max="200"
+                  :min="0"
                   hide-details
-                  single-line
-                  type="number"
-                  style="width: 60px"
                   @change="drawIntroduction"
-                ></v-text-field>
-              </template>
-            </v-slider>
+                >
+                  <template v-slot:append>
+                    <v-text-field
+                      v-model="sakeDescriptionXPos"
+                      class="mt-0 pt-0"
+                      hide-details
+                      single-line
+                      type="number"
+                      style="width: 60px"
+                      @change="drawIntroduction"
+                    ></v-text-field>
+                  </template>
+                </v-slider>
+              </v-col>
+            </v-row>
+            <v-select
+              v-model="fontTypeCurrent"
+              :items="fontTypes"
+              label="フォント"
+              @change="drawIntroduction"
+            ></v-select>
           </v-col>
           <v-col cols="6">
-            <p class="text-h4 text-center">プレビュー</p>
+            <h4 class="text-center">プレビュー</h4>
             <!-- 合成画像領域（Canvas） -->
             <canvas
               id="canvas"
@@ -365,18 +375,35 @@ export default {
       cropedBinary: "",
       file: null,
       fileErrorMessages: [],
-      sakeCategory: "",
+      fontTypes: [
+        "メイリオ",
+        "ＭＳ ゴシック",
+        "游ゴシック",
+        "HG明朝E",
+        "ＭＳ 明朝",
+        "ヒラギノ角ゴ Pro W3",
+        "Kiwi Maru",
+        "M PLUS 1p",
+        "M PLUS Rounded 1c",
+        "New Tegomin",
+        "Noto Sans JP",
+        "Potta One",
+        "Yusei Magic",
+      ],
+      fontTypeCurrent: "HG明朝E",
+      sakeCategory: "チューハイ・カクテル",
       sakeCategoryFontSize: 30,
-      sakeCategoryYPos: 100,
+      sakeCategoryYPos: 135,
       sakeCategoryXPos: 50,
-      sakeName: "",
+      sakeName: "麒麟　発酵レモンサワー",
       sakeNameFontSize: 50,
-      sakeNameYPos: 200,
+      sakeNameYPos: 235,
       sakeNameXPos: 50,
       sakeDescriptionFontSize: 30,
-      sakeDescriptionYPos: 300,
+      sakeDescriptionYPos: 380,
       sakeDescriptionXPos: 50,
-      sakeDescriptionTmpdata: "",
+      sakeDescriptionTmpdata:
+        "レモン果汁を酵母発酵させてるらしい。\n作り物の酸っぱいだけというか\nそういう感じがあんまりしない。\n\n「爽やか」ってラベルに書いてるけど納得。\nサッポロの「こだわり酒場のレモンサワー」\nよりも好きかも知れんね。",
       sakeDescription: [],
       SAKE_INTRODUCTION_FIELD: {
         X_POS: 0,
@@ -396,11 +423,13 @@ export default {
     // サンプル画像読み込み
     this.$nextTick(function () {
       this.imgSrc = this.$refs.examplesake.src;
+      this.cropImage();
     });
     // プレビュー画面に線を引く
     this.canvasContext = this.$refs.generatedImageCanvas.getContext("2d");
     this.canvasContext.strokeStyle = "#999999";
     this.canvasContext.strokeRect(0, 0, 1280, 720);
+    this.drawIntroduction();
   },
   methods: {
     //酒の紹介を描画する
@@ -504,7 +533,7 @@ export default {
     drawSakeName() {
       // 文字の書き込み
       this.canvasContext.font =
-        this.sakeCategoryFontSize + "px " + "sans-serif";
+        this.sakeCategoryFontSize + "px " + this.fontTypeCurrent;
       this.canvasContext.fillStyle = "#404040";
       this.canvasContext.fillText(
         this.sakeCategory,
@@ -513,7 +542,8 @@ export default {
       );
     },
     drawSakeCategory() {
-      this.canvasContext.font = this.sakeNameFontSize + "px " + "sans-serif";
+      this.canvasContext.font =
+        this.sakeNameFontSize + "px " + this.fontTypeCurrent;
       this.canvasContext.fillStyle = "#404040";
       this.canvasContext.fillText(
         this.sakeName,
@@ -552,7 +582,7 @@ export default {
         var aryStr = this.sakeDescription[j].split("");
         for (var k = 0; k < aryStr.length; k++) {
           this.canvasContext.font =
-            this.sakeDescriptionFontSize + "px " + "sans-serif";
+            this.sakeDescriptionFontSize + "px " + this.fontTypeCurrent;
           this.canvasContext.fillStyle = "#404040";
           this.canvasContext.fillText(
             aryStr[k],

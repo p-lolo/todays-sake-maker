@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=M+PLUS+1p&family=M+PLUS+Rounded+1c&family=New+Tegomin&family=Noto+Sans+JP&family=Potta+One&family=Yusei+Magic&display=swap');
 #app {
   font-family: "Kiwi Maru", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
