@@ -1,45 +1,48 @@
 <template>
-  <v-app id="app">
-    <v-container>
-      <v-row align="center" justify="space-around">
-        <v-col cols="12">
-          <p class="text-h2">今日のお酒ジェネレーター</p>
-          <br />
-          <p class="text-h3">お酒の情報と画像を入力</p>
-          <p class="text-left">Left aligned text on all viewport sizes.</p>
-        </v-col>
-        <v-col cols="6">
-          <v-form>
-            <v-text-field
-              v-model="sakeCategory"
-              label="酒の種類"
-              single-line
-              full-width
-              hide-details
-              @input="drawIntroduction"
-            ></v-text-field>
-            <v-text-field
-              v-model="sakeName"
-              label="酒の名前"
-              single-line
-              full-width
-              hide-details
-              @input="drawIntroduction"
-            ></v-text-field>
-            <v-divider></v-divider>
-            <v-textarea
-              v-model="sakeDescriptionTmpdata"
-              label="お酒の説明"
-              counter
-              maxlength="200"
-              full-width
-              single-line
-              @input="drawIntroduction"
-            ></v-textarea>
-          </v-form>
-        </v-col>
-        <v-col cols="6">
-          <div class="main">
+  <v-container>
+    <div id="body">
+      <div id="making">
+        <v-row align="start" justify="space-around">
+          <v-col cols="12">
+            <p class="text-h2 text-center">今の酒はこれ！ジェネレーター</p>
+            <br />
+            <p class="text-left text-center">
+              Left aligned text on all viewport sizes.
+            </p>
+          </v-col>
+          <v-col cols="6">
+            <p class="text-h3 text-center">お酒の情報</p>
+            <v-form>
+              <v-text-field
+                v-model="sakeCategory"
+                label="お酒の種類"
+                single-line
+                full-width
+                hide-details
+                @input="drawIntroduction"
+              ></v-text-field>
+              <v-text-field
+                v-model="sakeName"
+                label="お酒の名前"
+                single-line
+                full-width
+                hide-details
+                @input="drawIntroduction"
+              ></v-text-field>
+              <v-divider></v-divider>
+              <v-textarea
+                v-model="sakeDescriptionTmpdata"
+                label="お酒の説明"
+                counter
+                maxlength="200"
+                full-width
+                single-line
+                @input="drawIntroduction"
+              ></v-textarea>
+            </v-form>
+          </v-col>
+          <v-col cols="6">
+            <p class="text-h3 text-center">お酒の画像</p>
             <input
               style="display: none"
               ref="input"
@@ -47,13 +50,16 @@
               type="file"
               @change="upload"
             />
-            <v-btn depressed @click="selectImageClick">画像アップロード</v-btn>
-            <ul v-if="fileErrorMessages.length > 0" class="error-messages">
-              <li v-for="(message, index) in fileErrorMessages" :key="index">
-                {{ message }}
-              </li>
-            </ul>
-
+            <div class="py-2">
+              <v-btn depressed color="primary" rounded @click="selectImageClick"
+                >画像アップロード</v-btn
+              >
+              <ul v-if="fileErrorMessages.length > 0" class="error-messages">
+                <li v-for="(message, index) in fileErrorMessages" :key="index">
+                  {{ message }}
+                </li>
+              </ul>
+            </div>
             <div v-if="imgSrc != ''">
               <!-- Cropper / option : https://cly7796.net/blog/javascript/try-using-cropper-js/  -->
               <vue-cropper
@@ -64,58 +70,272 @@
                 :view-mode="2"
                 :background="true"
                 :rotatable="true"
-                :img-style="{ width: '600', height: '400px' }"
+                :img-style="{ width: '400', height: '400px' }"
               />
             </div>
-            <v-btn type="button" depressed block @click="cropImage"
-              >トリミングする</v-btn
+            <div class="py-2">
+              <v-btn
+                div
+                color="primary"
+                type="button"
+                depressed
+                block
+                @click="cropImage"
+                >トリミングする</v-btn
+              >
+            </div>
+          </v-col>
+        </v-row>
+        <div id="adjust">
+          <p class="text-h3 text-center">文字位置調整</p>
+        </div>
+        <v-row align="start" justify="center">
+          <v-col cols="6">
+            <p class="text-h4 text-center">お酒の種類</p>
+            <v-subheader>フォントサイズ</v-subheader>
+            <v-slider
+              v-model="sakeCategoryFontSize"
+              class="align-center"
+              :max="50"
+              :min="5"
+              hide-details
+              @change="drawIntroduction"
             >
-          </div>
-        </v-col>
-        <v-col cols="12">
-          <p class="text-h3">プレビュー</p>
-          <!-- 合成画像領域（Canvas） -->
+              <template v-slot:append>
+                <v-text-field
+                  v-model="sakeCategoryFontSize"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 60px"
+                  @change="drawIntroduction"
+                ></v-text-field>
+              </template>
+            </v-slider>
+            <v-subheader>縦の位置</v-subheader>
+            <v-slider
+              v-model="sakeCategoryYPos"
+              class="align-center"
+              :max="720"
+              :min="0"
+              hide-details
+              @change="drawIntroduction"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="sakeCategoryYPos"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 60px"
+                  @change="drawIntroduction"
+                ></v-text-field>
+              </template>
+            </v-slider>
+            <v-subheader>横の位置</v-subheader>
+            <v-slider
+              v-model="sakeCategoryXPos"
+              class="align-center"
+              :max="740"
+              :min="0"
+              hide-details
+              @change="drawIntroduction"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="sakeCategoryXPos"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 60px"
+                  @change="drawIntroduction"
+                ></v-text-field>
+              </template>
+            </v-slider>
+            <p class="text-h4 text-center">お酒の名前</p>
+            <v-subheader>フォントサイズ</v-subheader>
+            <v-slider
+              v-model="sakeNameFontSize"
+              class="align-center"
+              :max="50"
+              :min="5"
+              hide-details
+              @change="drawIntroduction"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="sakeNameFontSize"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 60px"
+                  @change="drawIntroduction"
+                ></v-text-field>
+              </template>
+            </v-slider>
+            <v-subheader>縦の位置</v-subheader>
+            <v-slider
+              v-model="sakeNameYPos"
+              class="align-center"
+              :max="720"
+              :min="0"
+              hide-details
+              @change="drawIntroduction"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="sakeNameYPos"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 60px"
+                  @change="drawIntroduction"
+                ></v-text-field>
+              </template>
+            </v-slider>
+            <v-subheader>横の位置</v-subheader>
+            <v-slider
+              v-model="sakeNameXPos"
+              class="align-center"
+              :max="740"
+              :min="0"
+              hide-details
+              @change="drawIntroduction"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="sakeNameXPos"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 60px"
+                  @change="drawIntroduction"
+                ></v-text-field>
+              </template>
+            </v-slider>
+            <p class="text-h4 text-center">お酒の説明</p>
+            <v-subheader>フォントサイズ</v-subheader>
+            <v-slider
+              v-model="sakeDescriptionFontSize"
+              class="align-center"
+              :max="50"
+              :min="5"
+              hide-details
+              @change="drawIntroduction"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="sakeDescriptionFontSize"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 60px"
+                  @change="drawIntroduction"
+                ></v-text-field>
+              </template>
+            </v-slider>
+            <v-subheader>縦の位置</v-subheader>
+            <v-slider
+              v-model="sakeDescriptionYPos"
+              class="align-center"
+              :max="720"
+              :min="0"
+              hide-details
+              @change="drawIntroduction"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="sakeDescriptionYPos"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 60px"
+                  @change="drawIntroduction"
+                ></v-text-field>
+              </template>
+            </v-slider>
+            <v-subheader>横の位置</v-subheader>
+            <v-slider
+              v-model="sakeDescriptionXPos"
+              class="align-center"
+              :max="740"
+              :min="0"
+              hide-details
+              @change="drawIntroduction"
+            >
+              <template v-slot:append>
+                <v-text-field
+                  v-model="sakeDescriptionXPos"
+                  class="mt-0 pt-0"
+                  hide-details
+                  single-line
+                  type="number"
+                  style="width: 60px"
+                  @change="drawIntroduction"
+                ></v-text-field>
+              </template>
+            </v-slider>
+          </v-col>
+          <v-col cols="6">
+            <p class="text-h3 text-center">プレビュー</p>
+            <!-- 合成画像領域（Canvas） -->
+            <canvas
+              id="canvas"
+              width="1280"
+              height="720"
+              ref="generatedImageCanvas"
+              style="width: 800px"
+            ></canvas>
+          </v-col>
+          <v-row align="start" justify="center">
+            <v-col cols="12">
+              <div>
+                <v-btn @click="downloadGeneratedImage" depressed color="primary"
+                  >ダウンロード</v-btn
+                >
+              </div>
+              <div>
+                <v-btn
+                  @click="downloadGeneratedImageWithTexture"
+                  depressed
+                  color="primary"
+                  >ダウンロード（テクスチャ合成済み）</v-btn
+                >
+              </div>
+            </v-col>
+          </v-row>
           <canvas
+            style="display: none"
             id="canvas"
-            width="1280"
-            height="720"
-            ref="generatedImageCanvas"
+            width="2048"
+            height="1024"
+            ref="textureCanvas"
           ></canvas>
-          <br />
-          <v-btn @click="downloadGeneratedImage" depressed color="primary"
-            >ダウンロード</v-btn
-          >
-          <v-btn
-            @click="downloadGeneratedImageWithTexture"
-            depressed
-            color="primary"
-            >ダウンロード（テクスチャ合成済み）</v-btn
-          >
-        </v-col>
-
-        <canvas
-          style="display: none"
-          id="canvas"
-          width="2048"
-          height="1024"
-          ref="textureCanvas"
-        ></canvas>
-        <!-- 非表示サンプル酒画像 -->
-        <img
-          alt="example_sake"
-          src="../assets/example_sake.jpg"
-          style="display: none"
-          ref="examplesake"
-        />
-        <img
-          alt="board_texture"
-          src="../assets/board_texture.png"
-          style="display: none"
-          ref="boardtexture"
-        />
-      </v-row>
-    </v-container>
-  </v-app>
+          <!-- 非表示サンプル酒画像 -->
+          <img
+            alt="example_sake"
+            src="../assets/example_sake.jpg"
+            style="display: none"
+            ref="examplesake"
+          />
+          <img
+            alt="board_texture"
+            src="../assets/board_texture.png"
+            style="display: none"
+            ref="boardtexture"
+          />
+        </v-row>
+      </div>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -140,7 +360,16 @@ export default {
       file: null,
       fileErrorMessages: [],
       sakeCategory: "",
+      sakeCategoryFontSize: 15,
+      sakeCategoryYPos: 100,
+      sakeCategoryXPos: 100,
       sakeName: "",
+      sakeNameFontSize: 15,
+      sakeNameYPos: 200,
+      sakeNameXPos: 100,
+      sakeDescriptionFontSize: 15,
+      sakeDescriptionYPos: 300,
+      sakeDescriptionXPos: 100,
       sakeDescriptionTmpdata: "",
       sakeDescription: [],
       SAKE_INTRODUCTION_FIELD: {
@@ -162,6 +391,10 @@ export default {
     this.$nextTick(function () {
       this.imgSrc = this.$refs.examplesake.src;
     });
+    // プレビュー画面に線を引く
+    this.canvasContext = this.$refs.generatedImageCanvas.getContext("2d");
+    this.canvasContext.strokeStyle = "#999999";
+    this.canvasContext.strokeRect(0, 0, 1280, 720);
   },
   methods: {
     //酒の紹介を描画する
@@ -174,13 +407,24 @@ export default {
         this.SAKE_INTRODUCTION_FIELD.WIDTH,
         this.SAKE_INTRODUCTION_FIELD.HEIGHT
       );
+      // 文字領域で消された枠線を引き直す
+      this.canvasContext.strokeStyle = "#999999";
+      this.canvasContext.strokeRect(0, 0, 1280, 720);
       // フォントと位置指定
       this.canvasContext.font = "32px serif";
       this.canvasContext.fillStyle = "#404040";
 
       // 文字の書き込み
-      this.canvasContext.fillText(this.sakeCategory, 100, 100);
-      this.canvasContext.fillText(this.sakeName, 100, 200);
+      this.canvasContext.fillText(
+        this.sakeCategory,
+        this.sakeCategoryXPos,
+        this.sakeCategoryYPos
+      );
+      this.canvasContext.fillText(
+        this.sakeName,
+        this.sakeNameXPos,
+        this.sakeNameYPos
+      );
       this.wordWrap();
     },
     // imput属性のメソッド実行
@@ -300,8 +544,8 @@ export default {
         for (var k = 0; k < aryStr.length; k++) {
           this.canvasContext.fillText(
             aryStr[k],
-            k * fontSize,
-            j * fontSize + 300
+            k * fontSize + this.sakeDescriptionXPos,
+            j * fontSize + this.sakeDescriptionYPos
           );
         }
       }
@@ -322,7 +566,17 @@ export default {
       // 生成したテクスチャの描画
       const image2 = await this.getImagefromCanvas();
       console.log(image2);
-      canvasContext.drawImage(image2, 0, 0, image2.width, image2.height, 1014, 495, 914, 515);
+      canvasContext.drawImage(
+        image2,
+        0,
+        0,
+        image2.width,
+        image2.height,
+        1014,
+        495,
+        914,
+        515
+      );
       // ダウンロード
       let link = document.createElement("a");
       link.href = canvasContext.canvas.toDataURL("image/png");
@@ -343,6 +597,15 @@ export default {
 </script>
 
 <style scoped>
+#adjust {
+  margin: 150px 0 0 0;
+}
+#preview {
+  margin: 0 0 0 0;
+}
+#body {
+  margin: 0 150px 0 150px;
+}
 h3 {
   margin: 40px 0 0;
 }
