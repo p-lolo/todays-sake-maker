@@ -75,18 +75,43 @@
         <v-col cols="12">
           <p class="text-h3">プレビュー</p>
           <!-- 合成画像領域（Canvas） -->
-          <canvas id="canvas" width="1280" height="720" ref="canvas"></canvas>
+          <canvas
+            id="canvas"
+            width="1280"
+            height="720"
+            ref="generatedImageCanvas"
+          ></canvas>
           <br />
           <v-btn @click="downloadGeneratedImage" depressed color="primary"
             >ダウンロード</v-btn
           >
+          <v-btn
+            @click="downloadGeneratedImageWithTexture"
+            depressed
+            color="primary"
+            >ダウンロード（テクスチャ合成済み）</v-btn
+          >
         </v-col>
+
+        <canvas
+          style="display: none"
+          id="canvas"
+          width="2048"
+          height="1024"
+          ref="textureCanvas"
+        ></canvas>
         <!-- 非表示サンプル酒画像 -->
         <img
           alt="example_sake"
           src="../assets/example_sake.jpg"
           style="display: none"
           ref="examplesake"
+        />
+        <img
+          alt="board_texture"
+          src="../assets/board_texture.png"
+          style="display: none"
+          ref="boardtexture"
         />
       </v-row>
     </v-container>
@@ -141,7 +166,7 @@ export default {
   methods: {
     //酒の紹介を描画する
     drawIntroduction() {
-      this.canvasContext = this.$refs.canvas.getContext("2d");
+      this.canvasContext = this.$refs.generatedImageCanvas.getContext("2d");
       // 文字領域を毎度削除する（上書きされない）
       this.canvasContext.clearRect(
         this.SAKE_INTRODUCTION_FIELD.X_POS,
@@ -225,7 +250,7 @@ export default {
           vectorX: 1,
           vectorY: 1,
         };
-        this.canvasContext = this.$refs.canvas.getContext("2d");
+        this.canvasContext = this.$refs.generatedImageCanvas.getContext("2d");
         this.canvasContext.drawImage(
           croppedData,
           data["x"],
@@ -282,11 +307,36 @@ export default {
       }
     },
     downloadGeneratedImage() {
-      let canvas = this.$refs.canvas;
+      let canvas = this.$refs.generatedImageCanvas;
       let link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
       link.download = "test.png";
       link.click();
+    },
+    async downloadGeneratedImageWithTexture() {
+      var canvasContext = this.$refs.textureCanvas.getContext("2d");
+      // ベースのテクスチャの描画
+      var image = new Image();
+      image.src = this.$refs.boardtexture.src;
+      canvasContext.drawImage(image, 0, 0);
+      // 生成したテクスチャの描画
+      const image2 = await this.getImagefromCanvas();
+      console.log(image2);
+      canvasContext.drawImage(image2, 0, 0, image2.width, image2.height, 1014, 495, 914, 515);
+      // ダウンロード
+      let link = document.createElement("a");
+      link.href = canvasContext.canvas.toDataURL("image/png");
+      link.download = "test.png";
+      link.click();
+    },
+    getImagefromCanvas() {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        const ctx = this.$refs.generatedImageCanvas.getContext("2d");
+        image.onload = () => resolve(image);
+        image.onerror = (e) => reject(e);
+        image.src = ctx.canvas.toDataURL();
+      });
     },
   },
 };
