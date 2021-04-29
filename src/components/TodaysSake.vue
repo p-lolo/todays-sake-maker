@@ -90,7 +90,7 @@
           <p class="text-h3 text-center">文字位置調整</p>
         </div>
         <v-row align="start" justify="center">
-          <v-col cols="6">
+          <v-col cols="2">
             <p class="text-h4 text-center">お酒の種類</p>
             <v-subheader>フォントサイズ</v-subheader>
             <v-slider
@@ -138,7 +138,7 @@
             <v-slider
               v-model="sakeCategoryXPos"
               class="align-center"
-              :max="740"
+              :max="200"
               :min="0"
               hide-details
               @change="drawIntroduction"
@@ -155,12 +155,14 @@
                 ></v-text-field>
               </template>
             </v-slider>
+          </v-col>
+          <v-col cols="2">
             <p class="text-h4 text-center">お酒の名前</p>
             <v-subheader>フォントサイズ</v-subheader>
             <v-slider
               v-model="sakeNameFontSize"
               class="align-center"
-              :max="50"
+              :max="100"
               :min="5"
               hide-details
               @change="drawIntroduction"
@@ -202,7 +204,7 @@
             <v-slider
               v-model="sakeNameXPos"
               class="align-center"
-              :max="740"
+              :max="200"
               :min="0"
               hide-details
               @change="drawIntroduction"
@@ -219,6 +221,8 @@
                 ></v-text-field>
               </template>
             </v-slider>
+          </v-col>
+          <v-col cols="2">
             <p class="text-h4 text-center">お酒の説明</p>
             <v-subheader>フォントサイズ</v-subheader>
             <v-slider
@@ -266,7 +270,7 @@
             <v-slider
               v-model="sakeDescriptionXPos"
               class="align-center"
-              :max="740"
+              :max="200"
               :min="0"
               hide-details
               @change="drawIntroduction"
@@ -285,7 +289,7 @@
             </v-slider>
           </v-col>
           <v-col cols="6">
-            <p class="text-h3 text-center">プレビュー</p>
+            <p class="text-h4 text-center">プレビュー</p>
             <!-- 合成画像領域（Canvas） -->
             <canvas
               id="canvas"
@@ -360,16 +364,16 @@ export default {
       file: null,
       fileErrorMessages: [],
       sakeCategory: "",
-      sakeCategoryFontSize: 15,
+      sakeCategoryFontSize: 30,
       sakeCategoryYPos: 100,
-      sakeCategoryXPos: 100,
+      sakeCategoryXPos: 50,
       sakeName: "",
-      sakeNameFontSize: 15,
+      sakeNameFontSize: 50,
       sakeNameYPos: 200,
-      sakeNameXPos: 100,
-      sakeDescriptionFontSize: 15,
+      sakeNameXPos: 50,
+      sakeDescriptionFontSize: 30,
       sakeDescriptionYPos: 300,
-      sakeDescriptionXPos: 100,
+      sakeDescriptionXPos: 50,
       sakeDescriptionTmpdata: "",
       sakeDescription: [],
       SAKE_INTRODUCTION_FIELD: {
@@ -410,22 +414,10 @@ export default {
       // 文字領域で消された枠線を引き直す
       this.canvasContext.strokeStyle = "#999999";
       this.canvasContext.strokeRect(0, 0, 1280, 720);
-      // フォントと位置指定
-      this.canvasContext.font = "32px serif";
-      this.canvasContext.fillStyle = "#404040";
 
-      // 文字の書き込み
-      this.canvasContext.fillText(
-        this.sakeCategory,
-        this.sakeCategoryXPos,
-        this.sakeCategoryYPos
-      );
-      this.canvasContext.fillText(
-        this.sakeName,
-        this.sakeNameXPos,
-        this.sakeNameYPos
-      );
-      this.wordWrap();
+      this.drawSakeCategory();
+      this.drawSakeName();
+      this.drawSakeDescription();
     },
     // imput属性のメソッド実行
     selectImageClick() {
@@ -446,7 +438,6 @@ export default {
         reader.readAsDataURL(file);
         reader.onload = (event) => {
           this.imgSrc = event.target.result;
-          // rebuild cropperjs with the updated source
           this.$refs.cropper.replace(event.target.result);
         };
         reader.onerror = (error) => reject(error);
@@ -463,7 +454,7 @@ export default {
       // jpeg か png ファイル以外は受け付けない
       if (file.type !== "image/jpeg" && file.type !== "image/png") {
         this.fileErrorMessages.push(
-          "アップロードできるのは jpeg画像ファイル か png画像ファイルのみです。"
+          "アップロードできるのは、jpg画像ファイルかpng画像ファイルのみです。"
         );
         result = false;
       }
@@ -508,14 +499,32 @@ export default {
         );
       };
     },
-    wordWrap() {
+    drawSakeName() {
+      // 文字の書き込み
+      this.canvasContext.font =
+        this.sakeCategoryFontSize + "px " + "sans-serif";
+      this.canvasContext.fillStyle = "#404040";
+      this.canvasContext.fillText(
+        this.sakeCategory,
+        this.sakeCategoryXPos,
+        this.sakeCategoryYPos
+      );
+    },
+    drawSakeCategory() {
+      this.canvasContext.font = this.sakeNameFontSize + "px " + "sans-serif";
+      this.canvasContext.fillStyle = "#404040";
+      this.canvasContext.fillText(
+        this.sakeName,
+        this.sakeNameXPos,
+        this.sakeNameYPos
+      );
+    },
+    drawSakeDescription() {
       //入力文字を1文字毎に配列化
       var aryText = this.sakeDescriptionTmpdata.split("");
 
-      //
-      var SAKE_INTRODUCTION_CHAR_LENGTH = 15;
-      var fontSize =
-        this.SAKE_INTRODUCTION_FIELD.WIDTH / SAKE_INTRODUCTION_CHAR_LENGTH;
+      var charLength =
+        this.SAKE_INTRODUCTION_FIELD.WIDTH - 100 / this.sakeDescriptionFontSize;
 
       //出力用の配列を用意
       this.sakeDescription = [];
@@ -525,9 +534,7 @@ export default {
       //入力1文字毎にループ改行コードもしくは折り返しで配列の添え字を足す
       for (var i = 0; i < aryText.length; i++) {
         var text = aryText[i];
-        if (
-          this.sakeDescription[rowCnt].length >= SAKE_INTRODUCTION_CHAR_LENGTH
-        ) {
+        if (this.sakeDescription[rowCnt].length >= charLength) {
           rowCnt++;
           this.sakeDescription[rowCnt] = "";
         }
@@ -542,10 +549,13 @@ export default {
       for (var j = 0; j < this.sakeDescription.length; j++) {
         var aryStr = this.sakeDescription[j].split("");
         for (var k = 0; k < aryStr.length; k++) {
+          this.canvasContext.font =
+            this.sakeDescriptionFontSize + "px " + "sans-serif";
+          this.canvasContext.fillStyle = "#404040";
           this.canvasContext.fillText(
             aryStr[k],
-            k * fontSize + this.sakeDescriptionXPos,
-            j * fontSize + this.sakeDescriptionYPos
+            k * this.sakeDescriptionFontSize + this.sakeDescriptionXPos,
+            j * this.sakeDescriptionFontSize + this.sakeDescriptionYPos
           );
         }
       }
