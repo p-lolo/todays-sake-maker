@@ -251,23 +251,23 @@ export default {
       //出力用の配列を用意
       this.sakeDescription = [];
       this.sakeDescription[0] = "";
-      var row_cnt = 0;
+      var rowCnt = 0;
 
       //入力1文字毎にループ改行コードもしくは折り返しで配列の添え字を足す
       for (var i = 0; i < aryText.length; i++) {
         var text = aryText[i];
         if (
-          this.sakeDescription[row_cnt].length >= SAKE_INTRODUCTION_CHAR_LENGTH
+          this.sakeDescription[rowCnt].length >= SAKE_INTRODUCTION_CHAR_LENGTH
         ) {
-          row_cnt++;
-          this.sakeDescription[row_cnt] = "";
+          rowCnt++;
+          this.sakeDescription[rowCnt] = "";
         }
         if (text == "\n") {
-          row_cnt++;
-          this.sakeDescription[row_cnt] = "";
+          rowCnt++;
+          this.sakeDescription[rowCnt] = "";
           text = "";
         }
-        this.sakeDescription[row_cnt] += text;
+        this.sakeDescription[rowCnt] += text;
       }
       //文字の表示y軸とx軸をループする
       for (var j = 0; j < this.sakeDescription.length; j++) {
