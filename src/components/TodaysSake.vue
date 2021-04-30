@@ -40,7 +40,7 @@
               />
               <span id="subtitle">どんなテクスチャがつくれるの？</span>
               <p>
-                <a target="”_blank”" href="https://booth.pm/ja/items/1085365"
+                <a target="_blank" href="https://booth.pm/ja/items/1085365"
                   >すずめはうす様がBoothで配布しているVRChat用立て看板</a
                 >
                 のテクスチャに合成されたものが生成されます。<br />
@@ -48,7 +48,7 @@
                 <br />
                 このサービスでテクスチャを作ってVRChatでアピールしている様子は
                 <a
-                  target="”_blank”"
+                  target="_blank"
                   href="https://twitter.com/search?q=%23%E4%BB%8A%E3%81%AE%E9%85%92%E3%81%AF%E3%81%93%E3%82%8C&src=recent_search_click"
                   >#今の酒はこれ</a
                 >
