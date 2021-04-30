@@ -13,54 +13,54 @@
                 ><b>いま飲んでいるお酒をVRChatでアピールしよう！</b></span
               >
             </p>
-            <div class="py-4">
-              <img
-                alt="icon_beer"
-                src="../assets/icon_beer.png"
-                ref="iconbeer"
-                width="100"
-                height="100"
-                align="left"
-              />
-              <span id="subtitle">これはなに</span>
-              <p>
-                VRChatで飲み会などのイベントに参加している時に、「何飲んでるの？」と聞かれることがあるかと思います。<br />
-                そんなとき、手持ち看板で自信満々に好きなお酒をアピールしたくなりますよね。<br />
-                このサービスはVRChatのアバターに飲んでいるお酒の情報を載せた看板のテクスチャをウェブ上で生成するサービスです。
-              </p>
+            <div id="introduction" class="text-center">
+              <div class="py-4">
+                <span id="subtitle">これはなに</span>
+                <p>
+                  VRChatで飲み会などのイベントに参加している時に、「何飲んでるの？」と聞かれることがあるかと思います。<br />
+                  そんなとき、手持ち看板で自信満々に好きなお酒をアピールしたくなりますよね。<br />
+                  このサービスはVRChatのアバターに飲んでいるお酒の情報を載せた看板のテクスチャをウェブ上で生成するサービスです。
+                </p>
+              </div>
+              <div class="py-4">
+                <span id="subtitle">どんなテクスチャがつくれるの？</span>
+                <p>
+                  <a target="_blank" href="https://booth.pm/ja/items/1085365"
+                    >すずめはうす様がBoothで配布しているVRChat用立て看板</a
+                  >
+                  のテクスチャに合成されたものが生成されます。<br />
+                  そのため、ウェブ上で作成したテクスチャを、ペイントツールなどを噛ますことなくそのまま利用することができます。
+                  <br />
+                  このサービスでテクスチャを作ってVRChatでアピールしている様子は
+                  <a
+                    target="_blank"
+                    href="https://twitter.com/search?q=%23%E4%BB%8A%E3%81%AE%E9%85%92%E3%81%AF%E3%81%93%E3%82%8C&src=recent_search_click"
+                    >#今の酒はこれ</a
+                  >
+                  でツイートしてくれると嬉しいです。
+                </p>
+              </div>
             </div>
-            <div class="py-4">
-              <img
-                alt="icon_nihonshu"
-                src="../assets/icon_nihonshu.png"
-                ref="iconnihonshu"
-                width="100"
-                height="100"
-                align="left"
-              />
-              <span id="subtitle">どんなテクスチャがつくれるの？</span>
+            <div id="adjust" class="text-center">
+              <h3>① まずは好きなお酒を入力しよう</h3>
+              <div class="py-4">
+                <img
+                  alt="icon_beer"
+                  src="../assets/icon_beer.png"
+                  ref="iconbeer"
+                  width="30"
+                  height="30"
+                  align="center"
+                />
+              </div>
               <p>
-                <a target="_blank" href="https://booth.pm/ja/items/1085365"
-                  >すずめはうす様がBoothで配布しているVRChat用立て看板</a
-                >
-                のテクスチャに合成されたものが生成されます。<br />
-                そのため、ウェブ上で作成したテクスチャを、ペイントツールなどを噛ますことなくそのまま利用することができます。
-                <br />
-                このサービスでテクスチャを作ってVRChatでアピールしている様子は
-                <a
-                  target="_blank"
-                  href="https://twitter.com/search?q=%23%E4%BB%8A%E3%81%AE%E9%85%92%E3%81%AF%E3%81%93%E3%82%8C&src=recent_search_click"
-                  >#今の酒はこれ</a
-                >
-                でツイートしてくれると嬉しいです。
+                看板に載せるお酒の情報と画像を入力します。<br />
+                お酒の情報は、「お酒の種類」「お酒の名前」「お酒の説明」を入力する事ができます。「お酒の説明」については、改行を含めて看板に反映されます。<br />
+                お酒の画像はアップロードして、任意の箇所をトリミングすることができます。
               </p>
-            </div>
-            <div id="adjust">
-              <h3 class="text-center">① まずは好きなお酒を入力しよう</h3>
             </div>
           </v-col>
           <v-col cols="6">
-            <h4 class="text-center">お酒の情報</h4>
             <v-form>
               <v-text-field
                 v-model="sakeCategory"
@@ -91,7 +91,6 @@
             </v-form>
           </v-col>
           <v-col cols="6">
-            <h4 class="text-center">お酒の画像</h4>
             <input
               style="display: none"
               ref="input"
@@ -99,9 +98,9 @@
               type="file"
               @change="upload"
             />
-            <div class="py-2">
+            <div class="py-2 text-center">
               <v-btn depressed color="primary" rounded @click="selectImageClick"
-                >画像アップロード</v-btn
+                >画像をアップロードする</v-btn
               >
               <ul v-if="fileErrorMessages.length > 0" class="error-messages">
                 <li v-for="(message, index) in fileErrorMessages" :key="index">
@@ -135,10 +134,26 @@
             </div>
           </v-col>
         </v-row>
-        <div id="adjust">
-          <h3 class="text-center">
-            ② 入力した文字の位置やフォントを調整しよう
-          </h3>
+        <div id="adjust" class="text-center">
+          <h3>② 入力した文字の位置やフォントを調整しよう</h3>
+          <div class="py-4">
+            <img
+              alt="icon_beer"
+              src="../assets/icon_beer.png"
+              ref="iconbeer"
+              width="30"
+              height="30"
+              align="center"
+            />
+          </div>
+          <p>
+            前段で入力した情報の文字位置を調整します。<br />
+            入力した「お酒の種類」「お酒の名前」「お酒の説明」のそれぞれについて、「フォントサイズ」「縦の位置」「横の位置」を調整できます。<br />
+            フォントについては共通で変更することができます。<br />
+            <span class="red--text"
+              >※現在、うまく反映されないバグがあります（何度か試行するとうまくいく場合があります）。</span
+            >
+          </p>
         </div>
         <v-row align="start" justify="center">
           <v-col cols="6">
@@ -350,7 +365,6 @@
             ></v-select>
           </v-col>
           <v-col cols="6">
-            <h4 class="text-center">プレビュー</h4>
             <!-- 合成画像領域（Canvas） -->
             <canvas
               id="canvas"
@@ -360,28 +374,56 @@
               style="width: 800px"
             ></canvas>
           </v-col>
-          <div id="adjust">
-            <h3 class="text-center">③ ダウンロードしてアバターに設定しよう</h3>
+          <div id="adjust" class="text-center">
+            <h3>③ ダウンロードしてアバターに設定しよう</h3>
+            <div class="py-4">
+              <img
+                alt="icon_beer"
+                src="../assets/icon_beer.png"
+                ref="iconbeer"
+                width="30"
+                height="30"
+                align="center"
+              />
+            </div>
+            <p>
+              前段で調整した画像をダウンロードしてアバターに設定します。<br />
+              プレビュー画面に表示されている画像のみをダウンロードすることもできますし、看板のテクスチャに合成された状態のものをダウンロードすることもできます。<br />
+              ダウンロードした画像をモデルに貼り付けるなど、Unityでアバターに設定して遊びましょう！<br />
+              <span class="red--text"
+                >※現在、テクスチャに対して微妙に位置がズレてダウンロードされるバグがあります。</span
+              ><br />
+            </p>
           </div>
           <v-row align="start" justify="center">
+            <img
+              alt="unity_screenshot"
+              src="../assets/unity_screenshot.jpg"
+              ref="unityScreenshot"
+              style="width: 600px"
+            />
             <v-col cols="12">
-              <div class="pa-2">
+              <div class="pa-2 text-center">
                 <v-btn @click="downloadGeneratedImage" depressed color="primary"
                   >ダウンロード</v-btn
-                >
-                プレビュー画面に表示されているもののみをダウンロードします
+                ><br />
+                プレビュー画面に表示されている画像をダウンロードします。
               </div>
-              <div class="pa-2">
+              <div class="pa-2 text-center">
                 <v-btn
                   @click="downloadGeneratedImageWithTexture"
                   depressed
                   color="primary"
                   >ダウンロード（テクスチャ合成済み）</v-btn
+                ><br />
+                <a target="_blank" href="https://booth.pm/ja/items/1085365"
+                  >すずめはうす様がBoothで配布しているVRChat用立て看板</a
                 >
-                プレビュー画面に表示されているもののみをダウンロードします
+                に同梱されているテクスチャに合成された画像をダウンロードします。
               </div>
             </v-col>
           </v-row>
+          <!-- 非表示テクスチャキャンバス -->
           <canvas
             style="display: none"
             id="canvas"
@@ -715,7 +757,7 @@ h3 {
   margin: 20px 0 0;
 }
 h4 {
-  font-size: 2.125rem;
+  font-size: 1.5rem;
 }
 #subtitle {
   font-size: 1.5rem;
