@@ -664,10 +664,10 @@ export default {
       console.log(image2);
       canvasContext.drawImage(
         image2,
-        0,
-        0,
-        image2.width,
-        image2.height,
+        2,
+        2,
+        image2.width-2,
+        image2.height-2,
         1014,
         495,
         914,
