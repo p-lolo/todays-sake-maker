@@ -421,6 +421,17 @@
                 >
                 に同梱されているテクスチャに合成された画像をダウンロードします。
               </div>
+              <div id="enjoy" class="pt-4 text-center">
+                <p>Let's enjoy drinking!</p>
+              </div>
+              <p class="text-center">
+                <a
+                  target="_blank"
+                  href="https://twitter.com/search?q=%23%E4%BB%8A%E3%81%AE%E9%85%92%E3%81%AF%E3%81%93%E3%82%8C&src=recent_search_click"
+                  >#今の酒はこれ</a
+                >
+                でツイートしてくれると嬉しいです。
+              </p>
             </v-col>
           </v-row>
           <!-- 非表示テクスチャキャンバス -->
@@ -761,6 +772,9 @@ h4 {
 }
 #subtitle {
   font-size: 1.5rem;
+}
+#enjoy {
+  font-size: 3rem;
 }
 ul {
   list-style-type: none;

@@ -1,13 +1,20 @@
 <template>
   <v-app>
     <div id="app">
-      <v-app-bar color="primary" dark app>
+      <v-app-bar color="primary" flat dark app>
         <v-toolbar-title>今の酒はこれ！ジェネレーター</v-toolbar-title>
         <v-spacer></v-spacer>
-        <!-- <v-toolbar-items>
-          <v-btn text>Button</v-btn>
-          <v-btn text>Button</v-btn>
-        </v-toolbar-items> -->
+        <v-toolbar-items>
+          <v-btn
+            icon
+            href="https://github.com/p-lolo/todays-sake-maker"
+            target="_blank"
+            ><v-icon>mdi-github</v-icon></v-btn
+          >
+          <v-btn icon href="https://twitter.com/p_lolo" target="_blank"
+            ><v-icon>mdi-twitter</v-icon></v-btn
+          >
+        </v-toolbar-items>
       </v-app-bar>
       <todays-sake />
     </div>
@@ -30,7 +37,7 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=M+PLUS+1p&family=M+PLUS+Rounded+1c&family=New+Tegomin&family=Noto+Sans+JP&family=Potta+One&family=Yusei+Magic&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=M+PLUS+1p&family=M+PLUS+Rounded+1c&family=New+Tegomin&family=Noto+Sans+JP&family=Potta+One&family=Yusei+Magic&display=swap");
 #app {
   font-family: "Kiwi Maru", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
