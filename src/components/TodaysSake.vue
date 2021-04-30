@@ -22,7 +22,7 @@
                   このサービスはVRChatのアバターに飲んでいるお酒の情報を載せた看板のテクスチャをウェブ上で生成するサービスです。
                 </p>
                 <div id="exampleTwitter" class="text-center">
-                  <Tweet id="1385979508092653570"></Tweet>
+                  <Tweet align="center" width="250" id="1385979508092653570"></Tweet>
                 </div>
               </div>
               <div class="py-4">
