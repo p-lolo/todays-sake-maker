@@ -26,7 +26,7 @@
                 <span id="subtitle">どんなテクスチャがつくれるの？</span>
                 <p>
                   <a target="_blank" href="https://booth.pm/ja/items/1085365"
-                    >すずめはうす様がBoothで配布しているVRChat用立て看板</a
+                    >すずめはうす様がBoothで配布している「VRChat用立て看板」</a
                   >
                   のテクスチャに合成されたものが生成されます。<br />
                   そのため、ウェブ上で作成したテクスチャを、ペイントツールなどを噛ますことなくそのまま利用することができます。
@@ -390,9 +390,7 @@
               前段で調整した画像をダウンロードしてアバターに設定します。<br />
               プレビュー画面に表示されている画像のみをダウンロードすることもできますし、看板のテクスチャに合成された状態のものをダウンロードすることもできます。<br />
               ダウンロードした画像をモデルに貼り付けるなど、Unityでアバターに設定して遊びましょう！<br />
-              <span class="red--text"
-                >※現在、テクスチャに対して微妙に位置がズレてダウンロードされるバグがあります。</span
-              ><br />
+              <br />
             </p>
           </div>
           <v-row align="start" justify="center">
@@ -417,9 +415,12 @@
                   >ダウンロード（テクスチャ合成済み）</v-btn
                 ><br />
                 <a target="_blank" href="https://booth.pm/ja/items/1085365"
-                  >すずめはうす様がBoothで配布しているVRChat用立て看板</a
+                  >すずめはうす様がBoothで配布している「VRChat用立て看板」</a
                 >
-                に同梱されているテクスチャに合成された画像をダウンロードします。
+                に同梱されているテクスチャに合成された画像をダウンロードします。<br />
+                <span class="red--text"
+                  >※現在、テクスチャに対して微妙に位置がズレてダウンロードされるバグがあります。</span
+                >
               </div>
               <div id="enjoy" class="pt-4 text-center">
                 <p>Let's enjoy drinking!</p>
@@ -432,6 +433,11 @@
                 >
                 でツイートしてくれると嬉しいです。
               </p>
+              <div id="thanks" class="py-8 text-left">
+                <p>
+                  「VRChat用立て看板」のテクスチャ利用を許可してくださった、すずめい子（@suzumeiko_as）様、ありがとうございました。
+                </p>
+              </div>
             </v-col>
           </v-row>
           <!-- 非表示テクスチャキャンバス -->
@@ -747,7 +753,7 @@ export default {
 
 <style scoped>
 #adjust {
-  margin: 50px 0 20px 0;
+  margin: 40px 0 20px 0;
 }
 #preview {
   margin: 0 0 0 0;
@@ -774,6 +780,7 @@ h4 {
   font-size: 1.5rem;
 }
 #enjoy {
+  margin: 40px 0 0 0;
   font-size: 3rem;
 }
 ul {

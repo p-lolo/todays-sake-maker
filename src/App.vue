@@ -18,7 +18,7 @@
       </v-app-bar>
       <todays-sake />
     </div>
-    <!-- <v-footer color="primary" dark> hogehoge </v-footer> -->
+    <v-footer color="primary" dark></v-footer>
   </v-app>
 </template>
 
@@ -43,8 +43,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 40px;
 }
 .v-application {
   font-family: "Kiwi Maru" !important;
