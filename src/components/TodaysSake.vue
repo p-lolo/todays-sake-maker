@@ -21,7 +21,11 @@
                   そんなとき、手持ち看板で自信満々に好きなお酒をアピールしたくなりますよね。<br />
                   このサービスはVRChatのアバターに飲んでいるお酒の情報を載せた看板のテクスチャをウェブ上で生成するサービスです。
                 </p>
-                <Tweet id="1385979508092653570"></Tweet>
+                <div id="exampleTwitter"  class="text-center">
+                  <Tweet
+                    id="1385979508092653570"
+                  ></Tweet>
+                </div>
               </div>
               <div class="py-4">
                 <span id="subtitle">どんなテクスチャがつくれるの？</span>
@@ -726,11 +730,11 @@ export default {
       console.log(image2);
       canvasContext.drawImage(
         image2,
-        2,
-        2,
-        image2.width - 2,
-        image2.height - 2,
-        1014,
+        0,
+        0,
+        image2.width,
+        image2.height,
+        1004,
         495,
         914,
         515
@@ -781,6 +785,11 @@ h4 {
 }
 #subtitle {
   font-size: 1.5rem;
+}
+#exampleTwitter {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 #enjoy {
   margin: 40px 0 0 0;
