@@ -21,6 +21,7 @@
                   そんなとき、手持ち看板で自信満々に好きなお酒をアピールしたくなりますよね。<br />
                   このサービスはVRChatのアバターに飲んでいるお酒の情報を載せた看板のテクスチャをウェブ上で生成するサービスです。
                 </p>
+                <Tweet id="1385979508092653570"></Tweet>
               </div>
               <div class="py-4">
                 <span id="subtitle">どんなテクスチャがつくれるの？</span>
@@ -470,10 +471,12 @@
 <script>
 import VueCropper from "vue-cropperjs";
 import "cropperjs/dist/cropper.css";
+import { Tweet } from "vue-tweet-embed";
 export default {
   name: "TodaysSake",
   components: {
     VueCropper,
+    Tweet,
   },
   props: {
     value: {
