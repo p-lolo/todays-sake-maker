@@ -21,10 +21,8 @@
                   そんなとき、手持ち看板で自信満々に好きなお酒をアピールしたくなりますよね。<br />
                   このサービスはVRChatのアバターに飲んでいるお酒の情報を載せた看板のテクスチャをウェブ上で生成するサービスです。
                 </p>
-                <div id="exampleTwitter"  class="text-center">
-                  <Tweet
-                    id="1385979508092653570"
-                  ></Tweet>
+                <div id="exampleTwitter" class="text-center">
+                  <Tweet id="1385979508092653570"></Tweet>
                 </div>
               </div>
               <div class="py-4">
@@ -423,9 +421,6 @@
                   >すずめはうす様がBoothで配布している「VRChat用立て看板」</a
                 >
                 に同梱されているテクスチャに合成された画像をダウンロードします。<br />
-                <span class="red--text"
-                  >※現在、テクスチャに対して微妙に位置がズレてダウンロードされるバグがあります。</span
-                >
               </div>
               <div id="enjoy" class="pt-4 text-center">
                 <p>Let's enjoy drinking!</p>
@@ -726,14 +721,14 @@ export default {
       image.src = this.$refs.boardtexture.src;
       canvasContext.drawImage(image, 0, 0);
       // 生成したテクスチャの描画
-      const image2 = await this.getImagefromCanvas();
-      console.log(image2);
+      const ovarlayImage = await this.getImagefromCanvas();
+      console.log(ovarlayImage);
       canvasContext.drawImage(
-        image2,
+        ovarlayImage,
         0,
         0,
-        image2.width,
-        image2.height,
+        ovarlayImage.width,
+        ovarlayImage.height,
         1004,
         495,
         914,
