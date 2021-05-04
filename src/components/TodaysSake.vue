@@ -87,7 +87,7 @@
               ></v-text-field>
               <v-text-field
                 v-model="sakePrice"
-                label="お酒の金額"
+                label="お酒の価格"
                 single-line
                 full-width
                 hide-details
@@ -459,10 +459,15 @@
                 <v-select
                   v-model="fontTypeCurrent"
                   :items="fontTypes"
-                  D
                   label="フォント"
                   @change="drawIntroduction"
                 ></v-select>
+                <v-color-picker
+                  dot-size="25"
+                  hide-mode-switch
+                  hide-inputs
+                  v-model="fontColorCurrent"
+                ></v-color-picker>
               </div>
             </v-row>
           </v-col>
@@ -582,6 +587,10 @@ export default {
       default: null,
     },
   },
+  watch: {
+    // フォント色がピッカーで変更された時に再描画させる
+    fontColorCurrent: 'drawIntroduction'
+  },
   data() {
     return {
       canvasContext: {},
@@ -605,6 +614,7 @@ export default {
         "Yusei Magic",
       ],
       fontTypeCurrent: "HG明朝E",
+      fontColorCurrent: "#404040",
       sakeCategory: "チューハイ・カクテル",
       sakeCategoryFontSize: 30,
       sakeCategoryYPos: 135,
@@ -613,7 +623,7 @@ export default {
       sakeNameFontSize: 50,
       sakeNameYPos: 235,
       sakeNameXPos: 50,
-      sakePrice: "224円 / 500ml",
+      sakePrice: "207円 / 500ml",
       sakePriceFontSize: 30,
       sakePriceYPos: 285,
       sakePriceXPos: 50,
@@ -623,6 +633,11 @@ export default {
       sakeDescriptionTmpdata:
         "レモン果汁を酵母発酵させてるらしい。\n作り物の酸っぱいだけというか\nそういう感じがあんまりしない。\n\n「爽やか」ってラベルに書いてるけど納得。\nサッポロの「こだわり酒場のレモンサワー」\nよりも好きかも知れんね。",
       sakeDescription: [],
+      hashTag: "＃今の酒はこれ",
+      hashTagFontSize: "bold 35",
+      hashTagYPos: 650,
+      hashTagXPos: 50,
+      hashtagFontType: "Kiwi Maru",
       SAKE_INTRODUCTION_FIELD: {
         X_POS: 0,
         Y_POS: 0,
@@ -668,6 +683,7 @@ export default {
       this.drawSakeName();
       this.drawSakePrice();
       this.drawSakeDescription();
+      this.drawHashTag();
     },
     // imput属性のメソッド実行
     selectImageClick() {
@@ -753,7 +769,7 @@ export default {
       // 文字の書き込み
       this.canvasContext.font =
         this.sakeCategoryFontSize + "px " + this.fontTypeCurrent;
-      this.canvasContext.fillStyle = "#404040";
+      this.canvasContext.fillStyle = this.fontColorCurrent;
       this.canvasContext.fillText(
         this.sakeCategory,
         this.sakeCategoryXPos,
@@ -764,7 +780,7 @@ export default {
       // 文字の書き込み
       this.canvasContext.font =
         this.sakePriceFontSize + "px " + this.fontTypeCurrent;
-      this.canvasContext.fillStyle = "#404040";
+      this.canvasContext.fillStyle = this.fontColorCurrent;
       this.canvasContext.fillText(
         this.sakePrice,
         this.sakePriceXPos,
@@ -774,7 +790,7 @@ export default {
     drawSakeCategory() {
       this.canvasContext.font =
         this.sakeNameFontSize + "px " + this.fontTypeCurrent;
-      this.canvasContext.fillStyle = "#404040";
+      this.canvasContext.fillStyle = this.fontColorCurrent;
       this.canvasContext.fillText(
         this.sakeName,
         this.sakeNameXPos,
@@ -813,7 +829,7 @@ export default {
         for (var k = 0; k < aryStr.length; k++) {
           this.canvasContext.font =
             this.sakeDescriptionFontSize + "px " + this.fontTypeCurrent;
-          this.canvasContext.fillStyle = "#404040";
+          this.canvasContext.fillStyle = this.fontColorCurrent;
           this.canvasContext.fillText(
             aryStr[k],
             k * this.sakeDescriptionFontSize + this.sakeDescriptionXPos,
@@ -821,6 +837,16 @@ export default {
           );
         }
       }
+    },
+    drawHashTag() {
+      this.canvasContext.font =
+        this.hashTagFontSize + "px " + this.hashtagFontType;
+      this.canvasContext.fillStyle = this.fontColorCurrent;
+      this.canvasContext.fillText(
+        this.hashTag,
+        this.hashTagXPos,
+        this.hashTagYPos
+      );
     },
     downloadGeneratedImage() {
       let canvas = this.$refs.generatedImageCanvas;
