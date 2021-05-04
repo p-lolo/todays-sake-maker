@@ -195,7 +195,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -216,7 +216,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -237,7 +237,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -265,7 +265,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -286,7 +286,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -307,7 +307,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -335,7 +335,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -356,7 +356,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -377,7 +377,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -406,7 +406,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -427,7 +427,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -448,7 +448,7 @@
                           single-line
                           type="number"
                           style="width: 60px"
-                          @change="drawIntroduction"
+                          @input="drawIntroduction"
                         ></v-text-field>
                       </template>
                     </v-slider>
@@ -575,6 +575,8 @@
 import VueCropper from "vue-cropperjs";
 import "cropperjs/dist/cropper.css";
 import { Tweet } from "vue-tweet-embed";
+import WebFontLoader from "webfontloader";
+
 export default {
   name: "TodaysSake",
   components: {
@@ -589,7 +591,7 @@ export default {
   },
   watch: {
     // フォント色がピッカーで変更された時に再描画させる
-    fontColorCurrent: 'drawIntroduction'
+    fontColorCurrent: "drawIntroduction",
   },
   data() {
     return {
@@ -652,17 +654,36 @@ export default {
       },
     };
   },
-  mounted() {
-    // サンプル画像読み込み
-    this.$nextTick(function () {
-      this.imgSrc = this.$refs.examplesake.src;
-      this.cropImage();
+  created() {
+    WebFontLoader.load({
+      google: {
+        // Use FVD notation to include families https://github.com/typekit/fvd
+        families: [
+          "Kiwi+Maru:400,500",
+          "M+PLUS+1p",
+          "M+PLUS+Rounded+1c",
+          "New+Tegomin",
+          "Noto+Sans+JP",
+          "Potta+One",
+          "Yusei+Magic",
+        ],
+      },
+      active: function () {
+        sessionStorage.fonts = true;
+      },
     });
+  },
+  mounted() {
     // プレビュー画面に線を引く
     this.canvasContext = this.$refs.generatedImageCanvas.getContext("2d");
     this.canvasContext.strokeStyle = "#999999";
     this.canvasContext.strokeRect(0, 0, 1280, 720);
     this.drawIntroduction();
+    // サンプル画像読み込み
+    this.$nextTick(function () {
+      this.imgSrc = this.$refs.examplesake.src;
+      this.cropImage();
+    });
   },
   methods: {
     //酒の紹介を描画する
@@ -679,13 +700,14 @@ export default {
       this.canvasContext.strokeStyle = "#999999";
       this.canvasContext.strokeRect(0, 0, 1280, 720);
 
+      // 文字をそれぞれ描画する
       this.drawSakeCategory();
       this.drawSakeName();
       this.drawSakePrice();
       this.drawSakeDescription();
       this.drawHashTag();
     },
-    // imput属性のメソッド実行
+    // input属性のメソッド実行
     selectImageClick() {
       this.$refs.input.click();
     },
@@ -736,11 +758,15 @@ export default {
       return result;
     },
     cropImage() {
-      // cropした画像を保管
-      this.cropedBinary = this.$refs.cropper.getCroppedCanvas().toDataURL();
       // cropした画像をImageのsrcとして設定
       var croppedData = new Image();
-      croppedData.src = this.cropedBinary;
+      if (this.$refs.cropper != undefined || this.$refs.cropper != null) {
+        // cropした画像を保管
+        this.cropedBinary = this.$refs.cropper.getCroppedCanvas().toDataURL();
+        croppedData.src = this.cropedBinary;
+      } else {
+        croppedData.src = this.$refs.examplesake.src;
+      }
       // Canvasに画像を描画
       croppedData.onload = () => {
         var data = {
@@ -863,7 +889,6 @@ export default {
       canvasContext.drawImage(image, 0, 0);
       // 生成したテクスチャの描画
       const ovarlayImage = await this.getImagefromCanvas();
-      console.log(ovarlayImage);
       canvasContext.drawImage(
         ovarlayImage,
         0,

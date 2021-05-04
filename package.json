@@ -14,7 +14,8 @@
     "vue": "^2.6.11",
     "vue-cropperjs": "^4.0.0",
     "vue-tweet-embed": "^2.4.0",
-    "vuetify": "^2.4.0"
+    "vuetify": "^2.4.0",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@mdi/font": "^5.9.55",
