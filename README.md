@@ -1,24 +1,11 @@
-# todays-sake
+# 今の酒はこれ！ジェネレーター
 
-## Project setup
-```
-npm install
-```
+いま飲んでいるお酒をVRChatでアピールできる、今の酒はこれ！ジェネレーターを作りました。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+手持ち看板で自信満々に好きなお酒をアピールできるとカッコいいですよね。  
+このサービスは、VRChatのアバターに飲んでいるお酒の情報を載せた看板を持たせる想定で、その看板のテクスチャをウェブ上で生成するサービスです。
 
-### Compiles and minifies for production
-```
-npm run build
-```
+[今の酒はこれ！ジェネレーター](https://todays-sake-maker.web.app/)
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 利用ライブラリについて
+このソフトウェアは、 Apache 2.0ライセンスで配布されている製作物が含まれています。
