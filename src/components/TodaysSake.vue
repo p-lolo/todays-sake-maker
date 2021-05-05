@@ -878,7 +878,7 @@ export default {
       let canvas = this.$refs.generatedImageCanvas;
       let link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
-      link.download = "test.png";
+      link.download = "TodaysSake.png";
       link.click();
     },
     async downloadGeneratedImageWithTexture() {
@@ -903,7 +903,7 @@ export default {
       // ダウンロード
       let link = document.createElement("a");
       link.href = canvasContext.canvas.toDataURL("image/png");
-      link.download = "test.png";
+      link.download = "TodaysSakeWithTexture.png";
       link.click();
     },
     getImagefromCanvas() {
